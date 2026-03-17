@@ -1,405 +1,693 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apex Endurance — Advisor Digital de Performance</title>
-  <meta name="description" content="Periodização adaptativa, força, mobilidade e nutrição — tudo personalizado com seus dados reais de Strava e Garmin. Treine como profissional por R$ 69/mês.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Endurance — Seu corpo fala. O Apex traduz.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#020202;
+  --surface:#080808;
+  --card:#0f0f0f;
+  --card2:#161616;
+  --border:rgba(255,255,255,0.07);
+  --white:#edeae2;
+  --muted:rgba(237,234,226,0.5);
+  --faint:rgba(237,234,226,0.22);
+  --lime:#c8f542;
+  --teal:#3dffd0;
+  --blue:#5b9cf6;
+  --red:#f05252;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden}
 
-    :root {
-      --bg: #0a0a0f;
-      --bg-card: #12121a;
-      --bg-card-hover: #1a1a26;
-      --border: #1e1e2e;
-      --text: #e4e4ef;
-      --text-muted: #8888a0;
-      --accent: #00d4aa;
-      --accent-glow: rgba(0, 212, 170, 0.15);
-      --accent-dark: #00a888;
-      --orange: #ff6b35;
-      --purple: #8b5cf6;
-      --radius: 12px;
-      --max-width: 1120px;
-    }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 60px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(2,2,2,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:26px;height:26px;border:1.5px solid var(--lime);border-radius:5px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:12px;height:12px;fill:var(--lime)}
+.logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.3px;color:var(--white)}
+.logo-text span{color:var(--lime)}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;transition:color 0.2s;cursor:pointer}
+.nav-links a:hover{color:var(--white)}
+.nav-btn{background:var(--lime);color:#000;padding:8px 20px;border-radius:5px;font-weight:600;font-size:12px;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s}
+.nav-btn:hover{opacity:0.85;color:#000!important}
 
-    html { scroll-behavior: smooth; }
+/* HERO */
+.hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1920&q=85&fit=crop') center/cover no-repeat;filter:brightness(0.35)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(2,2,2,1) 0%,rgba(2,2,2,0.6) 40%,rgba(2,2,2,0.15) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 60px 80px;width:100%}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.hero-line{width:28px;height:1px;background:var(--lime)}
+.hero-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--lime)}
+.hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(64px,9vw,140px);line-height:0.87;letter-spacing:-5px;margin-bottom:32px}
+.hero-title em{font-style:normal;color:var(--lime)}
+.hero-sub{font-size:18px;font-weight:300;color:var(--muted);max-width:520px;line-height:1.65;margin-bottom:44px}
+.hero-actions{display:flex;gap:14px;align-items:center;margin-bottom:72px}
+.btn-lime{background:var(--lime);color:#000;padding:15px 36px;border-radius:5px;font-weight:700;font-size:13px;letter-spacing:0.8px;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s}
+.btn-lime:hover{opacity:0.88}
+.btn-outline{background:transparent;color:var(--white);padding:15px 36px;border-radius:5px;font-size:13px;text-decoration:none;border:1px solid rgba(255,255,255,0.2);transition:all 0.2s}
+.btn-outline:hover{border-color:rgba(255,255,255,0.5)}
+.hero-stats{display:flex;gap:48px;padding-top:36px;border-top:1px solid var(--border)}
+.hero-stat-num{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;letter-spacing:-1px;color:var(--white)}
+.hero-stat-num span{color:var(--lime)}
+.hero-stat-label{font-size:12px;color:var(--muted);margin-top:4px;font-weight:300}
 
-    body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+/* TICKER */
+.ticker{overflow:hidden;background:var(--lime);padding:11px 0}
+.ticker-track{display:flex;white-space:nowrap;animation:roll 22s linear infinite}
+.tick{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#000;padding:0 44px;flex-shrink:0}
+.tick::after{content:'·';margin-left:44px}
+@keyframes roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    a { color: inherit; text-decoration: none; }
+/* SECTION BASE */
+.s{padding:110px 60px}
+.s-alt{background:var(--surface)}
+.s-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--faint);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.s-label::before{content:'';width:18px;height:1px;background:var(--lime)}
+h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(40px,5.5vw,72px);line-height:0.93;letter-spacing:-3px;margin-bottom:20px}
+.s-body{font-size:17px;color:var(--muted);font-weight:300;line-height:1.7;max-width:580px;margin-bottom:64px}
 
-    /* ---- NAV ---- */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(10, 10, 15, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: var(--max-width); margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.9rem 1.5rem;
-    }
-    .logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.5px; }
-    .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { font-size: 0.875rem; color: var(--text-muted); transition: color .2s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-cta {
-      background: var(--accent); color: var(--bg); font-weight: 600;
-      padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.875rem;
-      transition: background .2s;
-    }
-    .nav-cta:hover { background: var(--accent-dark); }
-    .menu-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+/* SPLIT — foto + dados */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:64px}
+.split-photo{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/5}
+.split-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(0.85)}
+.split-photo-caption{position:absolute;bottom:0;left:0;right:0;padding:28px;background:linear-gradient(to top,rgba(2,2,2,0.9),transparent)}
+.split-photo-caption p{font-size:13px;color:var(--muted);font-weight:300;line-height:1.5}
+.split-photo-caption strong{color:var(--lime);font-weight:600;display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.split-data{display:flex;flex-direction:column;gap:5px}
+.data-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;flex:1}
+.data-card-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.data-card-val{font-family:'Syne',sans-serif;font-size:56px;font-weight:800;letter-spacing:-3px;line-height:1;color:var(--blue);margin-bottom:6px}
+.data-card-delta{font-family:'DM Mono',monospace;font-size:12px;color:var(--red)}
+.data-card-sub{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.5;padding-top:10px;border-top:1px solid var(--border)}
+.metrics-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:5px}
+.mm{background:var(--card2);border-radius:10px;padding:16px}
+.mm-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.mm-val{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;letter-spacing:-1.5px;line-height:1}
+.mm-desc{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}
+.c-lime{color:var(--lime)}.c-red{color:var(--red)}.c-teal{color:var(--teal)}.c-blue{color:var(--blue)}
 
-    /* ---- HERO ---- */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 8rem 1.5rem 4rem;
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0,212,170,0.08), transparent),
-        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(139,92,246,0.06), transparent),
-        var(--bg);
-    }
-    .hero-inner { max-width: 720px; }
-    .hero-badge {
-      display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 1.5px; color: var(--accent); border: 1px solid var(--accent);
-      padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.5rem;
-    }
-    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.25rem; }
-    .hero h1 em { font-style: normal; color: var(--accent); }
-    .hero p { font-size: 1.125rem; color: var(--text-muted); max-width: 560px; margin: 0 auto 2rem; }
-    .hero-cta {
-      display: inline-block; background: var(--accent); color: var(--bg); font-weight: 700;
-      padding: 0.9rem 2.5rem; border-radius: 10px; font-size: 1.05rem;
-      box-shadow: 0 0 30px var(--accent-glow); transition: transform .2s, box-shadow .2s;
-    }
-    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--accent-glow); }
-    .hero-sub { margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); }
+/* FORMA DO DIA */
+.forma-card{background:linear-gradient(135deg,rgba(61,255,208,0.05),rgba(61,255,208,0.02));border:1px solid rgba(61,255,208,0.12);border-radius:16px;padding:28px}
+.forma-status{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;letter-spacing:-1px;color:var(--teal);margin-bottom:6px}
+.forma-fd{font-family:'DM Mono',monospace;font-size:11px;color:var(--faint);margin-bottom:10px}
+.forma-tip{font-size:13px;color:var(--muted);line-height:1.6}
 
-    /* ---- SECTIONS ---- */
-    section { padding: 5rem 1.5rem; }
-    .section-inner { max-width: var(--max-width); margin: 0 auto; }
-    .section-label {
-      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 1.5px; color: var(--accent); margin-bottom: 0.75rem;
-    }
-    .section-title { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; margin-bottom: 1rem; }
-    .section-desc { color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; }
+/* PROVA COUNTDOWN */
+.prova-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px}
+.prova-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.prova-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--faint)}
+.prova-badge{background:rgba(147,51,234,0.2);color:#c084fc;padding:3px 10px;border-radius:100px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px}
+.prova-bar-bg{height:2px;background:rgba(255,255,255,0.06);border-radius:1px;overflow:hidden;margin-bottom:12px}
+.prova-bar-fill{height:100%;width:88%;background:linear-gradient(90deg,#6d28d9,#a855f7);border-radius:1px}
+.prova-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.prova-meta strong{color:var(--white);font-weight:500}
 
-    /* ---- PROBLEM ---- */
-    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
-    .problem-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 1.5rem; transition: border-color .2s;
-    }
-    .problem-card:hover { border-color: var(--accent); }
-    .problem-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
-    .problem-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .problem-card p { font-size: 0.875rem; color: var(--text-muted); }
+/* SCIENCE */
+.science-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px}
+.chart-legend{display:flex;gap:24px;margin-bottom:24px}
+.legend-item{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.5px;color:var(--muted)}
+.legend-dot{width:7px;height:7px;border-radius:50%}
+.chart-area{height:120px;background:rgba(255,255,255,0.02);border-radius:8px;overflow:hidden;margin-bottom:20px;position:relative}
+.chart-area svg{width:100%;height:100%}
+.chart-note{font-family:'DM Mono',monospace;font-size:10px;color:var(--faint);letter-spacing:0.5px;text-align:center;padding-top:4px}
+.peak-label{font-family:'DM Mono',monospace;font-size:9px;fill:var(--teal);letter-spacing:1px}
+.science-text p{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:20px;font-weight:300}
+.science-text p strong{color:var(--white);font-weight:500}
+.science-quote{margin-top:36px;padding:24px 28px;border-left:2px solid var(--lime);background:rgba(200,245,66,0.025)}
+.science-quote p{font-size:15px;color:var(--white);font-style:italic;line-height:1.65;margin:0}
+.science-quote cite{display:block;font-family:'DM Mono',monospace;font-size:11px;color:var(--faint);font-style:normal;margin-top:10px;letter-spacing:0.5px}
 
-    /* ---- FEATURES ---- */
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .feature-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 2rem; transition: transform .2s, border-color .2s;
-    }
-    .feature-card:hover { transform: translateY(-4px); border-color: var(--accent); }
-    .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
-    .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .feature-card p { font-size: 0.9rem; color: var(--text-muted); }
+/* COMO FUNCIONA */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:64px}
+.step{background:var(--card);padding:36px 28px}
+.step:first-child{border-radius:14px 0 0 14px}
+.step:last-child{border-radius:0 14px 14px 0}
+.step-num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--lime);margin-bottom:28px}
+.step-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:700;margin-bottom:12px;letter-spacing:-0.5px}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300}
+.step-desc strong{color:var(--white);font-weight:500}
 
-    /* ---- HOW IT WORKS ---- */
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; counter-reset: step; }
-    .step { text-align: center; }
-    .step::before {
-      counter-increment: step; content: counter(step);
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 48px; height: 48px; border-radius: 50%;
-      background: var(--accent-glow); border: 2px solid var(--accent);
-      font-weight: 800; font-size: 1.1rem; color: var(--accent);
-      margin-bottom: 1rem;
-    }
-    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .step p { font-size: 0.875rem; color: var(--text-muted); }
+/* MERCADO */
+.market-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:64px;margin-bottom:64px}
+.mcard{border-top:1px solid var(--border);padding-top:24px}
+.mcard-val{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;letter-spacing:-2.5px;line-height:1;margin-bottom:8px}
+.mcard-label{font-size:13px;color:var(--muted);line-height:1.55;font-weight:300}
 
-    /* ---- PRICING ---- */
-    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .price-card {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 2rem; display: flex; flex-direction: column;
-    }
-    .price-card.featured { border-color: var(--accent); box-shadow: 0 0 40px var(--accent-glow); }
-    .price-card .tier { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 0.5rem; }
-    .price-card .price { font-size: 2.5rem; font-weight: 900; margin-bottom: 0.25rem; }
-    .price-card .price small { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
-    .price-card .price-note { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-    .price-card ul { list-style: none; flex: 1; margin-bottom: 1.5rem; }
-    .price-card li { font-size: 0.875rem; padding: 0.4rem 0; padding-left: 1.4rem; position: relative; color: var(--text-muted); }
-    .price-card li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
-    .price-btn {
-      display: block; text-align: center; padding: 0.75rem;
-      border-radius: 8px; font-weight: 600; font-size: 0.9rem;
-      border: 1px solid var(--accent); color: var(--accent); transition: all .2s;
-    }
-    .price-btn:hover { background: var(--accent); color: var(--bg); }
-    .price-card.featured .price-btn { background: var(--accent); color: var(--bg); }
-    .price-card.featured .price-btn:hover { background: var(--accent-dark); }
+/* ATIVIDADES */
+.activities-section{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:64px}
+.activities-photo{border-radius:16px;overflow:hidden;position:relative}
+.activities-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(0.7)}
+.activities-list{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px}
+.act-header{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--faint);margin-bottom:24px}
+.act-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--border)}
+.act-row:last-child{border-bottom:none}
+.act-sport{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);margin-bottom:4px}
+.act-name{font-size:14px;font-weight:500;color:var(--white);margin-bottom:3px}
+.act-meta{font-size:11px;color:var(--faint)}
+.act-ss{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--blue)}
 
-    /* ---- CTA ---- */
-    .cta-section {
-      text-align: center; padding: 5rem 1.5rem;
-      background:
-        radial-gradient(ellipse 50% 60% at 50% 100%, rgba(0,212,170,0.1), transparent),
-        var(--bg);
-    }
-    .cta-section h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; margin-bottom: 1rem; }
-    .cta-section p { color: var(--text-muted); max-width: 520px; margin: 0 auto 2rem; }
+/* PRICING */
+.pricing-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:780px;margin-top:64px}
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px}
+.pcard.featured{border-color:rgba(200,245,66,0.22);background:linear-gradient(145deg,rgba(200,245,66,0.04),rgba(61,255,208,0.02))}
+.pcard-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:20px}
+.pcard-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px;margin-bottom:6px}
+.pcard-price{font-family:'Syne',sans-serif;font-size:56px;font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:4px}
+.pcard-price sup{font-size:22px;font-weight:400;vertical-align:top;margin-top:10px;display:inline-block}
+.pcard-price span{font-size:16px;font-weight:300;color:var(--muted);letter-spacing:0}
+.pcard-desc{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.pcard-features{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.pf{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.pf-dot{width:4px;height:4px;background:var(--lime);border-radius:50%;flex-shrink:0}
 
-    /* ---- FOOTER ---- */
-    footer {
-      border-top: 1px solid var(--border); padding: 2.5rem 1.5rem;
-      text-align: center; font-size: 0.8rem; color: var(--text-muted);
-    }
+/* CTA FINAL */
+.cta-final{text-align:center;position:relative;overflow:hidden;padding:130px 60px}
+.cta-final::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(200,245,66,0.06),transparent 65%);pointer-events:none}
+.cta-final h2{max-width:680px;margin:0 auto 20px;text-align:center}
+.cta-final p{font-size:17px;color:var(--muted);font-weight:300;max-width:460px;margin:0 auto 48px;line-height:1.7}
+.int-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:40px;padding-top:40px;border-top:1px solid var(--border)}
+.int-pill{display:flex;align-items:center;gap:7px;padding:9px 18px;background:var(--card);border:1px solid var(--border);border-radius:5px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.dot-s{width:6px;height:6px;border-radius:50%;background:#fc4c02}
+.dot-g{width:6px;height:6px;border-radius:50%;background:#007cc3}
+.dot-br{width:6px;height:6px;border-radius:50%;background:var(--lime)}
 
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .menu-toggle { display: block; }
-      .nav-links.open {
-        display: flex; flex-direction: column; position: absolute;
-        top: 100%; left: 0; right: 0; background: var(--bg);
-        border-bottom: 1px solid var(--border);
-        padding: 1rem 1.5rem; gap: 1rem;
-      }
-      section { padding: 3.5rem 1rem; }
-      .features-grid { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-    }
-  </style>
+/* LEGAL */
+.legal{padding:120px 60px 80px;max-width:740px;display:none}
+.legal.active{display:block}
+.legal h1{font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:-2.5px;margin-bottom:8px}
+.legal-date{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--faint);margin-bottom:52px}
+.legal h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin:40px 0 14px;letter-spacing:-0.5px}
+.legal p,.legal li{font-size:15px;color:var(--muted);line-height:1.85;margin-bottom:12px;font-weight:300}
+.legal ul{padding-left:20px}
+.legal strong{color:var(--white);font-weight:500}
+.legal a{color:var(--teal);text-decoration:none}
+.legal-hl{background:rgba(200,245,66,0.04);border:1px solid rgba(200,245,66,0.12);border-radius:10px;padding:20px 24px;margin:20px 0}
+.legal-hl p{margin:0;color:var(--white);font-weight:400}
+
+/* SUPPORT */
+.support-g{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px}
+.scard h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px;letter-spacing:-0.5px}
+.scard p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.scard a{color:var(--lime);text-decoration:none;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.5px}
+
+/* ABOUT */
+.about-g{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:64px}
+.about-text p{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:20px;font-weight:300}
+.about-text p strong{color:var(--white);font-weight:500}
+.company-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px}
+.company-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--faint);margin-bottom:24px}
+.company-rows{display:flex;flex-direction:column;gap:18px}
+.cr strong{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.5px;color:var(--faint);font-weight:400;margin-bottom:4px}
+.cr span{font-size:14px;color:var(--white)}
+
+/* FOOTER */
+footer{padding:36px 60px;border-top:1px solid var(--border)}
+.ft{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.ft-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--white)}
+.ft-logo span{color:var(--lime)}
+.ft-nav{display:flex;gap:24px;list-style:none}
+.ft-nav a{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.5px;color:var(--faint);text-decoration:none;cursor:pointer;transition:color 0.2s}
+.ft-nav a:hover{color:var(--white)}
+.ft-copy{border-top:1px solid var(--border);padding-top:20px;font-family:'DM Mono',monospace;font-size:11px;color:var(--faint);line-height:1.8;letter-spacing:0.3px}
+
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-track{background:var(--black)}
+::-webkit-scrollbar-thumb{background:rgba(200,245,66,0.2);border-radius:1px}
+</style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-inner">
-    <a href="#" class="logo">apex<span>.</span></a>
-    <div class="nav-links" id="navLinks">
-      <a href="#problema">O problema</a>
-      <a href="#features">Features</a>
-      <a href="#como">Como funciona</a>
-      <a href="#precos">Precos</a>
-    </div>
-    <a href="#precos" class="nav-cta">Comecar gratis</a>
-    <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
-  </div>
+  <a class="logo" href="#" onclick="showPage('home')">
+    <div class="logo-mark"><svg viewBox="0 0 14 14"><polygon points="7,1 13,12 1,12"/></svg></div>
+    <div class="logo-text">Apex <span>Endurance</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')">Home</a></li>
+    <li><a onclick="showPage('about')">Sobre</a></li>
+    <li><a onclick="showPage('support')">Suporte</a></li>
+    <li><a onclick="showPage('privacy')">Privacidade</a></li>
+    <li><a onclick="showPage('terms')">Termos</a></li>
+    <li><a href="https://apex-endurance-web.vercel.app" class="nav-btn">Começar grátis</a></li>
+  </ul>
 </nav>
+
+<!-- HOME -->
+<div id="page-home">
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-badge">Advisor digital de performance</div>
-    <h1>Treine como profissional por <em>R$ 69/mês</em></h1>
-    <p>Periodizacao adaptativa que analisa seus dados reais de Strava e Garmin e gera treinos 100% personalizados &mdash; incluindo forca, mobilidade e nutricao.</p>
-    <a href="#precos" class="hero-cta">Comece gratis &rarr;</a>
-    <div class="hero-sub">14 dias de Pro gratis &middot; Sem cartao de credito</div>
-  </div>
-</section>
-
-<!-- PROBLEM -->
-<section id="problema">
-  <div class="section-inner">
-    <div class="section-label">O problema</div>
-    <h2 class="section-title">Por que atletas amadores travam</h2>
-    <p class="section-desc">Treinar bem exige coach + personal + nutricionista. Custo: R$ 500-1.500/mes. O Apex resolve tudo num unico app.</p>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="problem-icon">&#128200;</div>
-        <h3>Treino no feeling</h3>
-        <p>80% dos amadores seguem planilhas genericas que ignoram seu nivel real de fitness e fadiga.</p>
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-line"></div>
+      <div class="hero-tag">Periodização científica · Modelo Banister · Strava + Garmin</div>
+    </div>
+    <h1 class="hero-title">Seu corpo<br>fala. O Apex<br><em>traduz.</em></h1>
+    <p class="hero-sub">Inteligência de performance que antes só atletas de elite tinham acesso. Agora disponível para qualquer atleta brasileiro — com ou sem treinador.</p>
+    <div class="hero-actions">
+      <a href="https://apex-endurance-web.vercel.app" class="btn-lime">Começar grátis</a>
+      <a href="#ciencia" class="btn-outline">Ver a ciência</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num"><span>14</span>M</div>
+        <div class="hero-stat-label">corredores ativos no Brasil</div>
       </div>
-      <div class="problem-card">
-        <div class="problem-icon">&#128176;</div>
-        <h3>Custo fragmentado</h3>
-        <p>Coach de corrida + personal de forca + nutricionista esportivo = R$ 500-1.500 por mes.</p>
+      <div>
+        <div class="hero-stat-num"><span>+25%</span></div>
+        <div class="hero-stat-label">crescimento ao ano do mercado</div>
       </div>
-      <div class="problem-card">
-        <div class="problem-icon">&#128260;</div>
-        <h3>Apps que nao adaptam</h3>
-        <p>Strava rastreia mas nao prescreve. Garmin gera planos genericos. Nenhum adapta ao que realmente aconteceu.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-icon">&#129657;</div>
-        <h3>Risco de lesao</h3>
-        <p>Sem monitoramento de carga, atletas aumentam volume rapido demais e ficam lesionados por semanas.</p>
+      <div>
+        <div class="hero-stat-num">CTL <span>/</span> ATL <span>/</span> TSB</div>
+        <div class="hero-stat-label">modelo Banister — ciência olímpica no seu bolso</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section id="features" style="background: var(--bg-card);">
-  <div class="section-inner">
-    <div class="section-label">Features</div>
-    <h2 class="section-title">Tudo que voce precisa, num unico lugar</h2>
-    <p class="section-desc">O Apex combina ciencia de periodizacao com dados reais do atleta para gerar o plano mais completo do mercado brasileiro.</p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">&#127919;</div>
-        <h3>Motor de Viabilidade</h3>
-        <p>Analisa seu historico real (Strava/Garmin) e valida se seu objetivo de prova e viavel antes de montar qualquer plano.</p>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tick">APEX Score</span><span class="tick">Forma do Dia</span><span class="tick">Fadiga Aguda</span><span class="tick">Stress Score</span><span class="tick">Modelo Banister</span><span class="tick">Strava</span><span class="tick">Garmin Connect</span><span class="tick">Periodização Adaptativa</span><span class="tick">Corrida</span><span class="tick">Triatlón</span><span class="tick">Ciclismo</span><span class="tick">Natação</span>
+    <span class="tick">APEX Score</span><span class="tick">Forma do Dia</span><span class="tick">Fadiga Aguda</span><span class="tick">Stress Score</span><span class="tick">Modelo Banister</span><span class="tick">Strava</span><span class="tick">Garmin Connect</span><span class="tick">Periodização Adaptativa</span><span class="tick">Corrida</span><span class="tick">Triatlón</span><span class="tick">Ciclismo</span><span class="tick">Natação</span>
+  </div>
+</div>
+
+<!-- DADOS DO APP -->
+<section class="s s-alt">
+  <div class="s-label">O produto</div>
+  <h2>Cada treino tem<br>um peso. Agora<br>você sabe qual.</h2>
+  <p class="s-body">O Apex calcula sua carga de treino em tempo real — usando seus dados reais do Strava e Garmin — e entrega o que você precisa saber hoje.</p>
+
+  <div class="split">
+    <div class="split-photo">
+      <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=85&fit=crop" alt="Atleta correndo">
+      <div class="split-photo-caption">
+        <strong>Forma do dia — terça-feira</strong>
+        <p>Você está fresco. TSB positivo indica prontidão para esforço de qualidade hoje.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#9889;</div>
-        <h3>Periodizacao Adaptativa</h3>
-        <p>Macrociclo completo (Base &rarr; Build &rarr; Peak &rarr; Taper) que se corrige automaticamente a cada treino realizado.</p>
+    </div>
+    <div class="split-data">
+      <div class="data-card">
+        <div class="data-card-label">APEX Score</div>
+        <div>
+          <span class="data-card-val" id="score-count">0</span>
+          <span class="data-card-delta"> ↓2 vs semana passada</span>
+        </div>
+        <div class="data-card-sub">Fitness em recuperação — carga moderada esta semana mantém a trajetória ascendente para sua próxima prova.</div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#128170;</div>
-        <h3>Forca Periodizada</h3>
-        <p>Programa de forca integrado ao ciclo de treino &mdash; progressao pedagogica em 3 niveis com exercicios demonstrados.</p>
+      <div class="metrics-mini">
+        <div class="mm">
+          <div class="mm-label">CTL</div>
+          <div class="mm-val c-lime">46</div>
+          <div class="mm-desc">Fitness base acumulado — 6 semanas</div>
+        </div>
+        <div class="mm">
+          <div class="mm-label">ATL</div>
+          <div class="mm-val c-red">24</div>
+          <div class="mm-desc">Fadiga aguda — últimos 7 dias</div>
+        </div>
+        <div class="mm">
+          <div class="mm-label">TSB</div>
+          <div class="mm-val c-teal">+22</div>
+          <div class="mm-desc">Forma do dia — positivo = fresco</div>
+        </div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#129495;</div>
-        <h3>Mobilidade Pre/Pos</h3>
-        <p>Rotinas de mobilidade especificas para cada sessao, focando nas cadeias musculares mais exigidas.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#127829;</div>
-        <h3>Nutricao e Hidratacao</h3>
-        <p>Recomendacoes personalizadas de alimentacao, hidratacao e suplementacao para treino e dia de prova.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#128202;</div>
-        <h3>APEX Score</h3>
-        <p>Indice unico de performance que traduz toda sua evolucao num numero simples &mdash; sem graficos complexos.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#128736;</div>
-        <h3>Correcao de Rota</h3>
-        <p>Se voce pulou um treino, ficou doente ou surpreendeu positivamente, o plano se reajusta automaticamente.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#127942;</div>
-        <h3>Guia Dia de Prova</h3>
-        <p>7 dias antes da prova, receba o protocolo completo: aquecimento, nutricao, pace por etapa e estrategia de transicao.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+        <div class="forma-card">
+          <div class="data-card-label">Forma do Dia</div>
+          <div class="forma-status">Fresco</div>
+          <div class="forma-fd">FD: +22.4</div>
+          <div class="forma-tip">Dia ideal para intervalado ou treino de qualidade.</div>
+        </div>
+        <div class="prova-card">
+          <div class="prova-head">
+            <div class="prova-label">Contagem regressiva</div>
+            <div class="prova-badge">Prova</div>
+          </div>
+          <div class="prova-bar-bg"><div class="prova-bar-fill"></div></div>
+          <div class="prova-meta">
+            <span>Semana <strong>1</strong> de 1</span>
+            <span><strong>5</strong> dias</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="como">
-  <div class="section-inner">
-    <div class="section-label">Como funciona</div>
-    <h2 class="section-title">Do cadastro ao plano em 3 minutos</h2>
-    <p class="section-desc">Conecte suas contas, defina seu objetivo e deixe o algoritmo trabalhar por voce.</p>
-    <div class="steps">
-      <div class="step">
-        <h3>Conecte Strava ou Garmin</h3>
-        <p>O Apex analisa seu historico real de treinos das ultimas 12 semanas para entender seu nivel atual.</p>
+<!-- ATIVIDADES -->
+<section class="s">
+  <div class="s-label">Suas atividades</div>
+  <h2>Cada sessão<br>calculada.<br>Nada desperdiçado.</h2>
+  <p class="s-body">O Stress Score de cada atividade alimenta o modelo Banister e recalcula sua carga em tempo real. Strava e Garmin sincronizam automaticamente.</p>
+  <div class="activities-section">
+    <div class="activities-photo">
+      <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&q=85&fit=crop" alt="Natação endurance">
+    </div>
+    <div class="activities-list">
+      <div class="act-header">Atividades recentes · sincronizado via Strava</div>
+      <div class="act-row">
+        <div>
+          <div class="act-sport">Corrida de rua</div>
+          <div class="act-name">Corrida com Maitê</div>
+          <div class="act-meta">34min · 4.6km · 124bpm · ↑47m · sáb 14/03</div>
+        </div>
+        <div class="act-ss">SS 21</div>
       </div>
-      <div class="step">
-        <h3>Defina sua prova-alvo</h3>
-        <p>Escolha entre triathlon, corrida, ciclismo, trail ou "quero evoluir". O motor valida se o objetivo e viavel.</p>
+      <div class="act-row">
+        <div>
+          <div class="act-sport">Corrida de rua</div>
+          <div class="act-name">Regenerativo</div>
+          <div class="act-meta">35min · 6.0km · 133bpm · ↑6m · sex 13/03</div>
+        </div>
+        <div class="act-ss">SS 21</div>
       </div>
-      <div class="step">
-        <h3>Receba seu plano completo</h3>
-        <p>Macrociclo adaptativo com treinos diarios, forca, mobilidade, nutricao e alertas de risco &mdash; tudo personalizado.</p>
+      <div class="act-row">
+        <div>
+          <div class="act-sport">Natação</div>
+          <div class="act-name">Natação matinal</div>
+          <div class="act-meta">29min · 1.3km · 115bpm · sex 13/03</div>
+        </div>
+        <div class="act-ss">SS 18</div>
       </div>
-      <div class="step">
-        <h3>O plano evolui com voce</h3>
-        <p>A cada treino realizado, o Apex recalcula carga, ajusta intensidade e corrige o plano automaticamente.</p>
+      <div class="act-row">
+        <div>
+          <div class="act-sport">Corrida de rua</div>
+          <div class="act-name">Corrida matinal</div>
+          <div class="act-meta">28min · 5.0km · 140bpm · ↑15m · qua 11/03</div>
+        </div>
+        <div class="act-ss">SS 17</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- CIÊNCIA -->
+<section class="s s-alt" id="ciencia">
+  <div class="s-label">A ciência</div>
+  <div class="science-grid">
+    <div>
+      <h2>Modelo<br>Banister.<br>1975. Elite.<br>Agora seu.</h2>
+      <div class="science-quote">
+        <p>"A missão do Apex é democratizar o acesso à inteligência de performance — para que qualquer atleta brasileiro, em qualquer cidade, possa treinar com a mesma ciência que atletas olímpicos usam."</p>
+        <cite>— Fundador, atleta de triatlón</cite>
+      </div>
+    </div>
+    <div>
+      <div class="science-text">
+        <p>O <strong>modelo de impulso-resposta de Banister</strong> foi desenvolvido em 1975 para prever a performance de atletas de elite. Hoje é o motor dos principais softwares de treinamento do mundo — TrainingPeaks, WKO5, Today's Plan.</p>
+        <p>O Apex implementa esse mesmo modelo com <strong>seus dados reais do Strava e Garmin</strong> — não com parâmetros genéricos. Cada atleta tem sua própria curva de CTL, ATL e TSB calculada a partir do seu histórico real.</p>
+        <p>O resultado é um número diário que diz exatamente <strong>o quanto treinar hoje, quando descansar e quando chegar ao pico</strong> para a sua próxima prova.</p>
+      </div>
+      <div class="chart-card" style="margin-top:32px">
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--lime)"></div>CTL — Fitness</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>ATL — Fadiga</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>TSB — Forma</div>
+        </div>
+        <div class="chart-area">
+          <svg viewBox="0 0 500 120" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(200,245,66,0.15)"/>
+                <stop offset="100%" stop-color="rgba(200,245,66,0)"/>
+              </linearGradient>
+            </defs>
+            <!-- CTL -->
+            <polyline points="0,90 60,82 120,74 180,65 240,56 300,50 360,48 420,50 500,54" fill="none" stroke="rgba(200,245,66,0.6)" stroke-width="2"/>
+            <!-- ATL -->
+            <polyline points="0,100 60,96 120,90 180,78 240,68 300,82 360,94 420,86 500,78" fill="none" stroke="rgba(240,82,82,0.6)" stroke-width="2"/>
+            <!-- TSB -->
+            <polyline points="0,60 60,55 120,48 180,38 240,28 300,18 360,12 420,20 500,28" fill="none" stroke="rgba(61,255,208,0.6)" stroke-width="2"/>
+            <!-- Peak marker -->
+            <circle cx="360" cy="12" r="4" fill="var(--teal)" opacity="0.9"/>
+            <line x1="360" y1="12" x2="360" y2="120" stroke="rgba(61,255,208,0.12)" stroke-width="1" stroke-dasharray="4,4"/>
+            <text x="366" y="22" class="peak-label" font-size="9" fill="rgba(61,255,208,0.7)" font-family="monospace">PICO</text>
+          </svg>
+        </div>
+        <div class="chart-note">pico de performance: CTL alto · ATL baixo · TSB positivo máximo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MERCADO -->
+<section class="s">
+  <div class="s-label">O mercado</div>
+  <h2>O Brasil corre.<br>A onda é agora.</h2>
+  <p class="s-body">O maior movimento de endurance da história do Brasil está em curso. 14 milhões de atletas que merecem acesso à mesma ciência de performance que atletas profissionais usam.</p>
+  <div class="market-grid">
+    <div class="mcard">
+      <div class="mcard-val c-lime">14M</div>
+      <div class="mcard-label">corredores ativos no Brasil em 2025, crescendo 25% ao ano</div>
+    </div>
+    <div class="mcard">
+      <div class="mcard-val">11mil</div>
+      <div class="mcard-label">eventos esportivos em 2025 — alta de 30% sobre 2024. Metade dos inscritos são estreantes</div>
+    </div>
+    <div class="mcard">
+      <div class="mcard-val c-lime">52%</div>
+      <div class="mcard-label">dos corredores são mulheres — maioria absoluta nos eventos nacionais em 2025</div>
+    </div>
+    <div class="mcard">
+      <div class="mcard-val">2300%</div>
+      <div class="mcard-label">crescimento da Geração Z nas provas de 5km e 10km nos últimos 2 anos</div>
+    </div>
+  </div>
+  <p style="font-size:15px;color:var(--faint);font-family:'DM Mono',monospace;letter-spacing:0.5px">Fonte: ChronoMAX · ABRACEO · Ticket Sports · TS Summit 2025</p>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="s s-alt">
+  <div class="s-label">Como funciona</div>
+  <h2>Conecta. Analisa.<br>Chega no pico.</h2>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01 — CONECTA</div>
+      <div class="step-title">Strava e Garmin</div>
+      <div class="step-desc">Um clique. Seu histórico completo importado em segundos. <strong>O Apex começa a trabalhar imediatamente.</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">02 — INFORMA</div>
+      <div class="step-title">Sua próxima prova</div>
+      <div class="step-desc">Data, distância, objetivo. O plano é construído <strong>de trás para frente a partir da largada.</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">03 — RECEBE</div>
+      <div class="step-title">O treino de hoje</div>
+      <div class="step-desc">Calculado com base na sua carga real. <strong>Não no que estava planejado há 3 semanas.</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">04 — CHEGA</div>
+      <div class="step-title">No seu pico</div>
+      <div class="step-desc">CTL alto. ATL baixo. TSB positivo. <strong>A janela de performance máxima — no dia certo.</strong></div>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section id="precos" style="background: var(--bg-card);">
-  <div class="section-inner">
-    <div class="section-label">Precos</div>
-    <h2 class="section-title">Simples, transparente, sem surpresas</h2>
-    <p class="section-desc">Comece gratis. Evolua quando quiser. Garantia de 30 dias em todos os planos pagos.</p>
-    <div class="pricing-grid">
-      <!-- FREE -->
-      <div class="price-card">
-        <div class="tier">Free</div>
-        <div class="price">R$ 0</div>
-        <div class="price-note">Para sempre</div>
-        <ul>
-          <li>Conexao Strava / Garmin</li>
-          <li>APEX Score (numero)</li>
-          <li>Treino do dia (tipo basico)</li>
-          <li>Historico de 3 dias</li>
-        </ul>
-        <a href="#" class="price-btn">Criar conta gratis</a>
+<section class="s">
+  <div class="s-label">Planos</div>
+  <h2>Comece grátis.<br>Evolua no seu ritmo.</h2>
+  <div class="pricing-cards">
+    <div class="pcard">
+      <div class="pcard-tag">Starter</div>
+      <div class="pcard-name">Gratuito</div>
+      <div class="pcard-price">R$<sup></sup>0<span>/mês</span></div>
+      <div class="pcard-desc">Para conhecer seus dados e sentir a diferença.</div>
+      <div class="pcard-features">
+        <div class="pf"><div class="pf-dot"></div>Conexão com Strava</div>
+        <div class="pf"><div class="pf-dot"></div>APEX Score diário</div>
+        <div class="pf"><div class="pf-dot"></div>CTL / ATL / TSB</div>
+        <div class="pf"><div class="pf-dot"></div>Últimas 4 semanas de histórico</div>
+        <div class="pf"><div class="pf-dot"></div>1 prova no calendário</div>
       </div>
-      <!-- STARTER -->
-      <div class="price-card">
-        <div class="tier">Starter</div>
-        <div class="price">R$ 29 <small>/mes</small></div>
-        <div class="price-note">Para quem quer entender seus dados</div>
-        <ul>
-          <li>Tudo do Free</li>
-          <li>Forma do Dia + graficos APEX</li>
-          <li>Detalhes do treino (zonas, pace)</li>
-          <li>Historico de 30 dias</li>
-          <li>Alertas de risco basicos</li>
-        </ul>
-        <a href="#" class="price-btn">Comecar com Starter</a>
+      <a href="https://apex-endurance-web.vercel.app" class="btn-outline" style="display:block;text-align:center">Começar grátis</a>
+    </div>
+    <div class="pcard featured">
+      <div class="pcard-tag">Pro — Mais popular</div>
+      <div class="pcard-name">Performance</div>
+      <div class="pcard-price"><sup>R$</sup>69<span>/mês</span></div>
+      <div class="pcard-desc">Periodização completa. Adaptação diária. Performance real.</div>
+      <div class="pcard-features">
+        <div class="pf"><div class="pf-dot"></div>Tudo do Starter</div>
+        <div class="pf"><div class="pf-dot"></div>Conexão com Garmin Connect</div>
+        <div class="pf"><div class="pf-dot"></div>Treino adaptativo diário</div>
+        <div class="pf"><div class="pf-dot"></div>Plano de periodização completo por prova</div>
+        <div class="pf"><div class="pf-dot"></div>Histórico ilimitado</div>
+        <div class="pf"><div class="pf-dot"></div>Relatório semanal de evolução</div>
+        <div class="pf"><div class="pf-dot"></div>Corrida · Triatlón · Ciclismo · Natação</div>
       </div>
-      <!-- PRO -->
-      <div class="price-card featured">
-        <div class="tier">Pro &mdash; Mais popular</div>
-        <div class="price">R$ 69 <small>/mes</small></div>
-        <div class="price-note">ou R$ 590/ano (economize 29%)</div>
-        <ul>
-          <li>Tudo do Starter</li>
-          <li>Forca periodizada + mobilidade</li>
-          <li>Nutricao e hidratacao</li>
-          <li>Correcao de rota automatica</li>
-          <li>Analise de viabilidade de objetivo</li>
-          <li>Macrociclo completo</li>
-          <li>Guia de dia de prova</li>
-          <li>Relatorio semanal</li>
-          <li>Exportacao de dados</li>
-        </ul>
-        <a href="#" class="price-btn">14 dias gratis &rarr;</a>
-      </div>
+      <a href="https://apex-endurance-web.vercel.app" class="btn-lime" style="display:block;text-align:center">Assinar por R$69/mês</a>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
-  <h2>Pronto para treinar com inteligencia?</h2>
-  <p>Junte-se a atletas que ja usam periodizacao adaptativa para evoluir com seguranca &mdash; sem gastar fortunas com profissionais.</p>
-  <a href="#precos" class="hero-cta">Comece gratis &rarr;</a>
-  <div class="hero-sub">Garantia de 30 dias &middot; Cancele quando quiser</div>
+<!-- CTA FINAL -->
+<section class="cta-final s-alt">
+  <div class="s-label" style="justify-content:center">Comece agora</div>
+  <h2>Seu corpo fala.<br>Você está ouvindo?</h2>
+  <p>Conecta em 2 minutos. Sem cartão de crédito. O Apex começa a traduzir seus dados imediatamente.</p>
+  <a href="https://apex-endurance-web.vercel.app" class="btn-lime" style="font-size:13px;padding:16px 44px;letter-spacing:1px">Começar grátis agora</a>
+  <div class="int-row">
+    <div class="int-pill"><div class="dot-s"></div>Strava</div>
+    <div class="int-pill"><div class="dot-g"></div>Garmin Connect</div>
+    <div class="int-pill"><div class="dot-br"></div>Feito no Brasil</div>
+  </div>
 </section>
 
-<!-- FOOTER -->
+</div><!-- end home -->
+
+<!-- PRIVACY -->
+<div id="page-privacy" class="legal">
+  <h1>Política de Privacidade</h1>
+  <div class="legal-date">Última atualização: 17.03.2026</div>
+  <div class="legal-hl"><p><strong>Resumo:</strong> Seus dados são exclusivamente seus. Usados apenas para gerar seu plano de treino. Nunca vendidos. Nunca usados para treinar modelos de IA.</p></div>
+  <h3>1. Responsável pelo tratamento</h3>
+  <p><strong>DMG SERVIÇOS EMPRESARIAIS LTDA</strong> — CNPJ 35.416.764/0001-47 — R. Romualdo Machado, 122, Nova Friburgo/RJ — marca <strong>Ryvem</strong> — contato: <strong>apex@ryvem.com.br</strong></p>
+  <h3>2. Dados coletados</h3>
+  <ul><li>Cadastro: nome, email, data de nascimento</li><li>Strava: atividades físicas, frequência cardíaca, pace, distância, elevação</li><li>Garmin: atividades, métricas de saúde, dados de treino estruturado</li><li>Uso da plataforma: navegação, preferências, configurações</li></ul>
+  <h3>3. Dados do Strava</h3>
+  <div class="legal-hl"><p><strong>Compromisso Strava:</strong> Os dados obtidos via API do Strava são exibidos exclusivamente ao próprio atleta. Nunca são exibidos para outros usuários, nunca são compartilhados com terceiros e <strong>nunca são usados para treinar modelos de inteligência artificial ou machine learning.</strong></p></div>
+  <p>Acesso via OAuth com consentimento explícito. Revogação direta em <a href="https://www.strava.com/settings/apps">strava.com/settings/apps</a>.</p>
+  <h3>4. Dados do Garmin</h3>
+  <div class="legal-hl"><p><strong>Compromisso Garmin:</strong> Dados usados exclusivamente para gerar planos de treino personalizados. Consulte a política do Garmin em <a href="https://www.garmin.com/pt-BR/privacy/connect/">garmin.com/privacy/connect</a>.</p></div>
+  <p>Consentimento explícito na autenticação. O Apex utiliza a Training API do Garmin para enviar treinos estruturados ao dispositivo do atleta, com consentimento prévio.</p>
+  <h3>5. Finalidade</h3>
+  <ul><li>Calcular CTL, ATL, TSB, APEX Score</li><li>Gerar planos de periodização individualizados</li><li>Adaptar o treino diário com base na carga atual</li><li>Enviar treinos ao dispositivo Garmin</li></ul>
+  <p><strong>Dados NÃO são usados para:</strong> treinar modelos de IA, exibir a outros usuários, vender a terceiros.</p>
+  <h3>6. Compartilhamento</h3>
+  <p>Não vendemos dados. Compartilhamos apenas com Railway e Supabase (infraestrutura), sob contratos LGPD.</p>
+  <h3>7. Seus direitos (LGPD)</h3>
+  <p>Acesso, correção, portabilidade, eliminação e revogação. Contato: <strong>apex@ryvem.com.br</strong></p>
+</div>
+
+<!-- TERMS -->
+<div id="page-terms" class="legal">
+  <h1>Termos de Uso</h1>
+  <div class="legal-date">Última atualização: 17.03.2026</div>
+  <h3>1. Aceitação</h3>
+  <p>Ao usar o Apex Endurance, você concorda com estes Termos. Serviço operado pela <strong>DMG SERVIÇOS EMPRESARIAIS LTDA</strong> (CNPJ: 35.416.764/0001-47), marca Ryvem.</p>
+  <h3>2. Descrição do serviço</h3>
+  <p>Plataforma de periodização científica para atletas de endurance. Integra com Strava e Garmin para calcular métricas de carga de treino e gerar planos adaptativos personalizados.</p>
+  <h3>3. Uso aceitável</h3>
+  <ul><li>Uso pessoal do atleta cadastrado</li><li>Proibido compartilhar credenciais</li><li>Proibido uso comercial sem autorização</li></ul>
+  <h3>4. Integrações</h3>
+  <p>O uso das integrações com Strava e Garmin está sujeito aos termos dessas plataformas. O Apex respeita integralmente as políticas de uso das APIs do Strava e Garmin.</p>
+  <h3>5. Limitação de responsabilidade</h3>
+  <p>O Apex fornece recomendações baseadas em algoritmos científicos. Não substitui orientação médica ou de profissional de educação física.</p>
+  <h3>6. Pagamento e cancelamento</h3>
+  <p>Plano Pro cobrado mensalmente. Cancelamento a qualquer momento sem multa. Acesso mantido até o fim do período pago.</p>
+  <h3>7. Foro</h3>
+  <p>Comarca de Nova Friburgo/RJ. Contato: <strong>apex@ryvem.com.br</strong></p>
+</div>
+
+<!-- SUPPORT -->
+<div id="page-support" class="legal">
+  <h1>Suporte</h1>
+  <div class="legal-date">Retorno em até 24 horas úteis</div>
+  <div class="support-g">
+    <div class="scard"><h3>Contato geral</h3><p>Dúvidas, problemas técnicos ou solicitações.</p><a href="mailto:apex@ryvem.com.br">apex@ryvem.com.br</a></div>
+    <div class="scard"><h3>Integrações</h3><p>Problema com Strava ou Garmin? Desconecte e reconecte nas configurações do app.</p><a href="https://apex-endurance-web.vercel.app">Acessar o app</a></div>
+    <div class="scard"><h3>Excluir conta</h3><p>Envie email com assunto "Exclusão de conta" para remover todos os seus dados.</p><a href="mailto:apex@ryvem.com.br?subject=Exclusão de conta">Solicitar exclusão</a></div>
+    <div class="scard"><h3>Revogar Strava</h3><p>Para revogar o acesso aos seus dados do Strava, acesse as configurações da plataforma.</p><a href="https://www.strava.com/settings/apps" target="_blank">Configurações Strava</a></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="legal">
+  <h1>Sobre o Apex Endurance</h1>
+  <div class="legal-date">Atleta construindo para atletas</div>
+  <div class="about-g">
+    <div class="about-text">
+      <p>O Apex Endurance nasceu da convicção de que <strong>todo atleta merece treinar com inteligência de performance real</strong> — independente do nível, cidade ou orçamento.</p>
+      <p>Durante anos, o acesso à periodização científica baseada no modelo Banister esteve restrito a atletas de elite com acesso a coaches especializados e softwares caros em inglês. O atleta amador sério — que acorda às 5h para treinar, que investe em equipamento, que se inscreve em provas — ficava de fora.</p>
+      <p>O Apex muda isso. Conectando com Strava e Garmin, o app <strong>transforma seus dados reais em inteligência aplicável ao seu treino de amanhã</strong>: quanto esforço fazer, quando descansar, quando chegar ao seu pico para a próxima prova.</p>
+      <p>Nossa missão é ajudar o maior número de atletas brasileiros a entenderem melhor seu próprio corpo e evoluírem com consistência — com ou sem treinador, em qualquer cidade do Brasil.</p>
+    </div>
+    <div>
+      <div class="company-card">
+        <div class="company-label">Dados da empresa</div>
+        <div class="company-rows">
+          <div class="cr"><strong>Razão Social</strong><span>DMG SERVIÇOS EMPRESARIAIS LTDA</span></div>
+          <div class="cr"><strong>CNPJ</strong><span>35.416.764/0001-47</span></div>
+          <div class="cr"><strong>Sede</strong><span>R. Romualdo Machado, 122 — Nova Friburgo/RJ</span></div>
+          <div class="cr"><strong>Marca</strong><span>Ryvem · Apex Endurance</span></div>
+          <div class="cr"><strong>Contato</strong><span>apex@ryvem.com.br</span></div>
+          <div class="cr"><strong>Situação</strong><span>Ativa desde novembro de 2019</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer>
-  <div class="section-inner">
-    <p><strong>Apex Endurance</strong> &mdash; Advisor digital de performance para atletas de endurance.</p>
-    <p style="margin-top: 0.5rem;">Triathlon &middot; Corrida &middot; Ciclismo &middot; Trail Running &middot; Natacao</p>
-    <p style="margin-top: 1rem;">&copy; 2026 Apex Endurance. Todos os direitos reservados.</p>
+  <div class="ft">
+    <div class="ft-logo">Apex <span>Endurance</span></div>
+    <ul class="ft-nav">
+      <li><a onclick="showPage('home')">Home</a></li>
+      <li><a onclick="showPage('about')">Sobre</a></li>
+      <li><a onclick="showPage('support')">Suporte</a></li>
+      <li><a onclick="showPage('privacy')">Privacidade</a></li>
+      <li><a onclick="showPage('terms')">Termos</a></li>
+    </ul>
+  </div>
+  <div class="ft-copy">
+    DMG SERVIÇOS EMPRESARIAIS LTDA · CNPJ 35.416.764/0001-47 · R. Romualdo Machado, 122 · Nova Friburgo/RJ · CEP 28.614-250<br>
+    Marca: Ryvem · apex@ryvem.com.br · © 2026 · LGPD · Strava API · Garmin Connect API
   </div>
 </footer>
 
+<script>
+function showPage(p) {
+  document.getElementById('page-home').style.display = p==='home' ? 'block' : 'none';
+  ['privacy','terms','support','about'].forEach(id => {
+    const el = document.getElementById('page-'+id);
+    if(el) el.classList.toggle('active', id===p);
+  });
+  window.scrollTo(0,0);
+}
+
+// Score animation
+let start = null;
+const scoreEl = document.getElementById('score-count');
+function animScore(ts) {
+  if(!start) start = ts;
+  const p = Math.min((ts-start)/1600, 1);
+  const e = 1 - Math.pow(1-p, 3);
+  if(scoreEl) scoreEl.textContent = Math.floor(e * 77);
+  if(p < 1) requestAnimationFrame(animScore);
+}
+setTimeout(() => requestAnimationFrame(animScore), 800);
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {threshold: 0.06});
+
+document.querySelectorAll('.data-card,.mm,.forma-card,.prova-card,.step,.mcard,.pcard,.act-row,.chart-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(14px)';
+  el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+  obs.observe(el);
+});
+</script>
 </body>
 </html>
